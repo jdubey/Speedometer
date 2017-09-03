@@ -11,12 +11,12 @@ import UIKit
 
 extension Double {
     
-    var inRadians: CGFloat {
-        return CGFloat(self * .pi / 180)
+    var inRadians: Double {
+        return Double(self * .pi / 180)
     }
     
-    var inDegrees: CGFloat {
-        return CGFloat(self * 180 / .pi)
+    var inDegrees: Double {
+        return Double(self * 180 / .pi)
     }
     
     func radiansToDegrees() -> Double {
@@ -26,4 +26,15 @@ extension Double {
     func degreesToRadians() -> Double {
         return self * .pi / 180
     }
+}
+
+extension CGFloat {
+    var inRadians: CGFloat {
+        return CGFloat(self * .pi / 180)
+    }
+    
+    var inDegrees: CGFloat {
+        return CGFloat(self * 180 / .pi)
+    }
+
 }
