@@ -24,7 +24,7 @@
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BcD-oA-LWR" customClass="SpeedView" customModule="Speedometer" customModuleProvider="target">
                                 <rect key="frame" x="10" y="320" width="350" height="175"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="color" keyPath="arcColor">
                                         <color key="value" red="0.3411764706" green="0.85490196080000003" blue="0.83529411760000005" alpha="1" colorSpace="calibratedRGB"/>
@@ -41,7 +41,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="speedView" destination="BcD-oA-LWR" id="fsn-Ue-FDc"/>

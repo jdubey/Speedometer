@@ -11,7 +11,7 @@ import UIKit
 @IBDesignable class SpeedView: UIView {
     
     lazy var renderer: UIGraphicsImageRenderer = {
-       return UIGraphicsImageRenderer(size: CGSize(width: self.frame.width, height: self.frame.height))
+       return UIGraphicsImageRenderer(size: CGSize(width: self.frame.width, height: self.frame.height + 20))
     }()
     
     @IBInspectable var arcColor: UIColor = .green {
@@ -65,14 +65,14 @@ import UIKit
     
     
     private func drawMajorTic(_ angle: CGFloat, radius: CGFloat) {
-        drawTic(angle, outerRadius: radius, length: 20, lineWidth: 3.0)
+        drawTic(angle, outerRadius: radius, length: 20, lineWidth: 3.0, withLabel: true)
     }
     
     private func drawMinorTic(_ angle: CGFloat, radius: CGFloat) {
         drawTic(angle, outerRadius: radius, length: 10, lineWidth: 1.0)
     }
     
-    private func drawTic(_ angle: CGFloat, outerRadius: CGFloat, length: CGFloat, lineWidth: CGFloat) {
+    private func drawTic(_ angle: CGFloat, outerRadius: CGFloat, length: CGFloat, lineWidth: CGFloat, withLabel: Bool = false) {
         let path = UIBezierPath()
         let ticStartX = cos(angle.inRadians) * outerRadius
         let ticStartY = sin(angle.inRadians) * outerRadius
@@ -81,12 +81,22 @@ import UIKit
         let ticEndX = cos(angle.inRadians) * (outerRadius - length)
         let ticEndY = sin(angle.inRadians) * (outerRadius - length)
         
+        
         path.addLine(to: CGPoint(x: outerRadius + ticEndX, y: bounds.height - ticEndY))
         path.lineWidth = lineWidth
         path.stroke()
-        
-        let x = ticEndX < 0 ? ticEndX + 10 : ticEndX - 20
-        drawTicLabel("x", rect: CGRect(x: outerRadius - length +  x, y: bounds.height -  ticEndY, width: 30, height: 30))
+                
+        if floor(ticEndX) > 0 { x = ticEndX}
+        if floor(ticEndX) < 0 { x = ticEndX + 10}
+
+        if withLabel {
+            let labelCtrX = cos(angle.inRadians) * (outerRadius - length - 20)
+            let labelCtrY = sin(angle.inRadians) * (outerRadius - length - 20)
+            
+            let rect = CGRect(x: outerRadius - length + labelCtrX + 7.5, y: bounds.height - labelCtrY - 7.5, width: 30, height: 30)
+
+            drawTicLabel("\(Int(angle))", rect: rect)
+        }
     }
     
     private func drawTicLabel(_ text: String, rect: CGRect) {
@@ -94,7 +104,8 @@ import UIKit
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.alignment = .center
             
-            let attrs = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Thin", size: 12)!, NSParagraphStyleAttributeName: paragraphStyle]
+            let attrs = [NSFontAttributeName: UIFont(name: "HelveticaNeue-Thin", size: 12)!,
+                         NSParagraphStyleAttributeName: paragraphStyle]
             
             let string = text
             string.draw(with:rect, options: .usesLineFragmentOrigin, attributes: attrs, context: nil)
