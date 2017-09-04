@@ -55,7 +55,7 @@ import UIKit
         
         for i in 0...50 {
             if i % 5 == 0 {
-                drawMajorTic(CGFloat(i * 180/50), radius: bounds.height)
+                drawMajorTic(CGFloat(i * 180/50), radius: bounds.height, label: "\(50 - i)")
             }
             else {
                 drawMinorTic(CGFloat(i * 180/50), radius: bounds.height)
@@ -64,8 +64,14 @@ import UIKit
     }
     
     
-    private func drawMajorTic(_ angle: CGFloat, radius: CGFloat) {
+    private func drawMajorTic(_ angle: CGFloat, radius: CGFloat, label: String) {
         drawTic(angle, outerRadius: radius, length: 20, lineWidth: 3.0, withLabel: true)
+        
+        let labelCtrX = cos(angle.inRadians) * (radius - 20 - 20)
+        let labelCtrY = sin(angle.inRadians) * (radius - 20 - 20)
+
+        let rect = CGRect(x: radius - 20 + labelCtrX + 5, y: bounds.height - labelCtrY - 7.5, width: 30, height: 30)
+        drawTicLabel(label, rect: rect)
     }
     
     private func drawMinorTic(_ angle: CGFloat, radius: CGFloat) {
@@ -85,19 +91,8 @@ import UIKit
         path.addLine(to: CGPoint(x: outerRadius + ticEndX, y: bounds.height - ticEndY))
         path.lineWidth = lineWidth
         path.stroke()
-                
-        if floor(ticEndX) > 0 { x = ticEndX}
-        if floor(ticEndX) < 0 { x = ticEndX + 10}
-
-        if withLabel {
-            let labelCtrX = cos(angle.inRadians) * (outerRadius - length - 20)
-            let labelCtrY = sin(angle.inRadians) * (outerRadius - length - 20)
-            
-            let rect = CGRect(x: outerRadius - length + labelCtrX + 7.5, y: bounds.height - labelCtrY - 7.5, width: 30, height: 30)
-
-            drawTicLabel("\(Int(angle))", rect: rect)
-        }
     }
+
     
     private func drawTicLabel(_ text: String, rect: CGRect) {
         let img = renderer.image { ctx in
