@@ -14,6 +14,8 @@ import UIKit
        return UIGraphicsImageRenderer(size: CGSize(width: self.frame.width, height: self.frame.height + 20))
     }()
     
+    var needleLayer = CAShapeLayer()
+    
     @IBInspectable var arcColor: UIColor = .green {
         didSet {
             self.setNeedsDisplay()
@@ -42,9 +44,40 @@ import UIKit
         super.prepareForInterfaceBuilder()
     }
     
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
+    
     override func draw(_ rect: CGRect) {
+        drawSpeedGuage()
+        drawNeedle()
+    }
+    
+    private func drawNeedle() {
+
+        needleLayer.frame = CGRect(x: 20, y: 20, width: bounds.width - 40, height: bounds.width - 40)
+
+        UIGraphicsBeginImageContext(needleLayer.frame.size)
+        let path = UIBezierPath()
+        
+        let center = CGPoint(x: needleLayer.frame.width / 2, y: needleLayer.frame.height / 2)
+        path.move(to: center)
+        path.addLine(to: CGPoint(x: center.x, y: center.y - 5))
+        path.addLine(to: CGPoint(x: bounds.width - 20, y: center.y))
+        path.addLine(to: CGPoint(x: center.x, y: center.y + 5))
+        path.close()
+        path.lineWidth = 1.0
+        needleLayer.fillColor = UIColor.red.cgColor
+        needleLayer.path = path.cgPath
+        path.stroke()
+        path.fill()
+        
+
+        layer.addSublayer(needleLayer)
+        needleLayer.setAffineTransform(CGAffineTransform(rotationAngle: -.pi / 4))
+        needleLayer.setNeedsLayout()
+        UIGraphicsEndImageContext()
+
+    }
+    
+    private func drawSpeedGuage() {
         // Drawing code
         let path = UIBezierPath()
         let radius = bounds.height - lineWidth / 2
@@ -62,16 +95,15 @@ import UIKit
             }
         }
     }
-    
-    
+
     private func drawMajorTic(_ angle: CGFloat, radius: CGFloat, label: String) {
         drawTic(angle, outerRadius: radius, length: 20, lineWidth: 3.0, withLabel: true)
         
         let labelCtrX = cos(angle.inRadians) * (radius - 20 - 20)
         let labelCtrY = sin(angle.inRadians) * (radius - 20 - 20)
 
-        let rect = CGRect(x: radius - 20 + labelCtrX + 5, y: bounds.height - labelCtrY - 7.5, width: 30, height: 30)
-        drawTicLabel(label, rect: rect)
+        let labelRect = CGRect(x: radius - 20 + labelCtrX + 5, y: bounds.height - labelCtrY - 7.5, width: 30, height: 30)
+        drawTicLabel(label, rect: labelRect)
     }
     
     private func drawMinorTic(_ angle: CGFloat, radius: CGFloat) {

@@ -515,6 +515,7 @@
 				C9CB89C81F41C06100B17AB0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C9CB89C91F41C06100B17AB0 /* Build configuration list for PBXNativeTarget "SpeedometerTests" */ = {
 			isa = XCConfigurationList;
@@ -523,6 +524,7 @@
 				C9CB89CB1F41C06100B17AB0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C9CB89CC1F41C06100B17AB0 /* Build configuration list for PBXNativeTarget "SpeedometerUITests" */ = {
 			isa = XCConfigurationList;
@@ -531,6 +533,7 @@
 				C9CB89CE1F41C06100B17AB0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
