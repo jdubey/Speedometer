@@ -40,6 +40,13 @@ import UIKit
         }
     }
     
+    @IBInspectable var speed: CGFloat = 0.0 {
+        didSet {
+            self.setNeedsDisplay()
+        }
+    }
+
+    
     override func prepareForInterfaceBuilder() {
         super.prepareForInterfaceBuilder()
     }
@@ -56,11 +63,11 @@ import UIKit
 
         UIGraphicsBeginImageContext(needleLayer.frame.size)
         let path = UIBezierPath()
-        
+        needleLayer.backgroundColor = UIColor.gray.cgColor
         let center = CGPoint(x: needleLayer.frame.width / 2, y: needleLayer.frame.height / 2)
         path.move(to: center)
         path.addLine(to: CGPoint(x: center.x, y: center.y - 5))
-        path.addLine(to: CGPoint(x: bounds.width - 20, y: center.y))
+        path.addLine(to: CGPoint(x: 20, y: center.y))
         path.addLine(to: CGPoint(x: center.x, y: center.y + 5))
         path.close()
         path.lineWidth = 1.0
@@ -69,9 +76,9 @@ import UIKit
         path.stroke()
         path.fill()
         
+        needleLayer.setAffineTransform(CGAffineTransform(rotationAngle: CGFloat(speed/50.0 * .pi)))
 
         layer.addSublayer(needleLayer)
-        needleLayer.setAffineTransform(CGAffineTransform(rotationAngle: -.pi / 4))
         needleLayer.setNeedsLayout()
         UIGraphicsEndImageContext()
 

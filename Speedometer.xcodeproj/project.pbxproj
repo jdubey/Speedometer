@@ -199,6 +199,7 @@
 				TargetAttributes = {
 					C9CB899D1F41C06100B17AB0 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 8PWF84GXNR;
 						ProvisioningStyle = Automatic;
 					};
 					C9CB89B11F41C06100B17AB0 = {
@@ -422,6 +423,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 8PWF84GXNR;
 				INFOPLIST_FILE = Speedometer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dubey.Speedometer;
@@ -434,6 +436,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 8PWF84GXNR;
 				INFOPLIST_FILE = Speedometer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.dubey.Speedometer;
